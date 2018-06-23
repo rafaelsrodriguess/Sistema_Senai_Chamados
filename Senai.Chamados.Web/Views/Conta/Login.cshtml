@@ -6,15 +6,17 @@
 }
 
 @section Styles {
-    <link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://getbootstrap.com/docs/4.1/examples/sign-in/signin.css" rel="stylesheet" />
 }
 
 @using (Html.BeginForm("Login", "Conta", FormMethod.Post, new { @class = "form-signin" }))
 {
-    <div lass="text-center">
+    <div lass="text-center mb-4">
         <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <p>Build form controls with floating labels via the <code>:placeholder-shown</code> pseudo-element. <a href="https://caniuse.com/#feat=css-placeholder-shown">Works in latest Chrome, Safari, and Firefox.</a></p>
     </div>
+
 
     <p>@ViewBag.Error</p>
 
@@ -36,6 +38,6 @@
     <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
 
 
-    <h2>Login</h2>
+
 
 }

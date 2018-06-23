@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+
 namespace Senai.Chamados.Web.ViewModels
 {
     public class CadastrarUsuarioViewModel
@@ -27,5 +29,8 @@ namespace Senai.Chamados.Web.ViewModels
         [DataType(DataType.Password)]
         public string Senha { get; set; }
         
+        public SelectList Sexo { get; set; }
+        [Required(ErrorMessage = "Informe o sexo")]
+        public string SexoId { get; set; }
     }
 }

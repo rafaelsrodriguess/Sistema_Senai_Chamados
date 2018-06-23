@@ -13,31 +13,70 @@ namespace Senai.Chamados.Web.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-
             return View();
         }
 
         [HttpPost]
-        public ActionResult Login(LoginViewModel usuario)
+        public ActionResult Login(LoginViewModel Login)
         {
+            if (ModelState.IsValid)
+            {
+                ViewBag.Erro = "Dados inválidos";
 
-            return View();
+                return View();
+            }
+            //valida usuario
+            if (Login.Email == "senai@br.senai.sp" && Login.Senha == "123456")
+            {
+                ViewBag.Autenticado = "Usuario Autenticado";
+                //Redireciona para pagina de cadastro de usuário
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+               TempData["Autenticado"] = "Usuario não Cadastrado";
+                return RedirectToAction("CadastroUsuario");
+            }
         }
+
+
         [HttpGet]
         public ActionResult CadastrarUsuario()
         {
-            return View();
+            CadastrarUsuarioViewModel objcadastrarUsuario = new CadastrarUsuarioViewModel();
+            // objcadastrarUsuarioViewModel.Nome = "Rafael Rodrigues";
+            //objcadastrarUsuarioViewModel.Email = "rafaelsrodriguess@gmail.com";
+            //return View(objcadastrarUsuarioViewModel);
+            objcadastrarUsuario.Sexo = ListaSexo();
+
+
+            return View(objcadastrarUsuario);
         }
+
+
         [HttpPost]
         public ActionResult CadastrarUsuario(CadastrarUsuarioViewModel usuario)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                ViewBag.Erro = "Dados invalidos";
+                ViewBag.Erro = "Dados inválidos";
                 return View();
             }
+            usuario.Sexo = ListaSexo();
+
             //TODO:Efettuar cadastro no banco de dados
-            return View();
+            return View(usuario);
+        }
+
+        private SelectList ListaSexo()
+        {
+            return new SelectList(
+                new List<SelectListItem>
+            {
+            new SelectListItem { Text = "Masculino", Value = "1" },
+            new SelectListItem { Text = "Feminino", Value = "2" },
+        }, "Value", "Text");
         }
     }
 }
+    
