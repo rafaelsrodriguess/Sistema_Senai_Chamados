@@ -56,6 +56,10 @@
     <Compile Include="Migrations\201806260027322_BancoInicial_25_06_20181.Designer.cs">
       <DependentUpon>201806260027322_BancoInicial_25_06_20181.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806262313277_Atualizacao_usuario.cs" />
+    <Compile Include="Migrations\201806262313277_Atualizacao_usuario.Designer.cs">
+      <DependentUpon>201806262313277_Atualizacao_usuario.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -75,6 +79,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806260027322_BancoInicial_25_06_20181.resx">
       <DependentUpon>201806260027322_BancoInicial_25_06_20181.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806262313277_Atualizacao_usuario.resx">
+      <DependentUpon>201806262313277_Atualizacao_usuario.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Senai.Chamados.Web.ViewModels
 {
-    public class CadastrarUsuarioViewModel
+    public class CadastrarUsuarioViewModel : BaseViewModel
     {
         [Display(Name = "Informe o nome")]
         [Required(ErrorMessage ="Informe o campo nome")]
@@ -24,13 +24,28 @@ namespace Senai.Chamados.Web.ViewModels
         [DataType(DataType.PhoneNumber)]
         public string Telefone { get; set; }
 
+        [Required(ErrorMessage = "Informe o cpf")]
+        [MaxLength(14, ErrorMessage = "Cpf deve possuir no máximo 14 Caracteres")]
+        public string Cpf { get; set; }
+
         [Display(Name = "Informe a Senha")]
         [Required(ErrorMessage = "Informe a senha Senha")]
         [DataType(DataType.Password)]
+        [MaxLength(8, ErrorMessage ="Nuúmero máximo de Caracteres é 8")]
+        [MinLength(4,ErrorMessage ="Número minimo de Caracteres é 4")]
         public string Senha { get; set; }
-        
+       
         public SelectList Sexo { get; set; }
         [Required(ErrorMessage = "Informe o sexo")]
         public string SexoId { get; set; }
+
+        [MaxLength(9, ErrorMessage = "Cep deve possuir no máximo 9 Caracteres")]
+        public string Cep { get; set; }
+        public string Logradouro { get; set; }
+        public string Numero { get; set; }
+        public string Complemento { get; set; }
+        public string Bairro { get; set; }
+        public string Cidade { get; set; }
+        public string Estado { get; set; }
     }
 }
