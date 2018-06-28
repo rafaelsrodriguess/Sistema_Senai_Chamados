@@ -1,5 +1,6 @@
 ﻿
 using Senai.Chamados.Data.Contexto;
+using Senai.Chamados.Data.Repositorios;
 using Senai.Chamados.Domain.Entidades;
 using Senai.Chamados.Web.ViewModels;
 using System;
@@ -26,6 +27,19 @@ namespace Senai.Chamados.Web.Controllers
                 return View();
             }
 
+            using (UsuarioRepositorio _repUsuario = new UsuarioRepositorio()) 
+            {
+                UsuarioDomain UsuarioBanco = _repUsuario.Login(Login.Email, Login.Senha);
+                if(UsuarioBanco !=null)
+                {
+                  return  RedirectToAction("Index","Usuario");
+
+                }
+                else
+                {
+                    ViewBag.Erro = "Usuario ou  senha inválidos. Tente novamente";
+                }
+            }
             //Valida Usuário
             if (Login.Email == "senai@br.senai.sp" && Login.Senha == "123456")
             {
@@ -68,7 +82,7 @@ namespace Senai.Chamados.Web.Controllers
             UsuarioDomain usuarioBanco = new UsuarioDomain();
             try
             {
-                usuarioBanco.Id = Guid.NewGuid();
+                //usuarioBanco.Id = Guid.NewGuid();
                 usuarioBanco.Nome = usuario.Nome;
                 usuarioBanco.Email = usuario.Email;
                 usuarioBanco.Senha = usuario.Senha;
@@ -81,13 +95,16 @@ namespace Senai.Chamados.Web.Controllers
                 usuarioBanco.Bairro = usuario.Bairro;
                 usuarioBanco.Cidade = usuario.Cidade;
                 usuarioBanco.Estado = usuario.Estado;
-                usuarioBanco.DataCriacao = DateTime.Now;
-                usuarioBanco.DataAlteracao = DateTime.Now;
-                context.Usuarios.Add(usuarioBanco);
-                context.SaveChanges();
-                TempData["Mensagem"] = "Usuário Cadastrado";
+               // usuarioBanco.DataCriacao = DateTime.Now;
+               // usuarioBanco.DataAlteracao = DateTime.Now;
+
+                using (UsuarioRepositorio _repUsuario = new UsuarioRepositorio())
+                {
+                    _repUsuario.Inserir(usuarioBanco);
+                }
+                    TempData["Mensagem"] = "Usuário Cadastrado";
                 return RedirectToAction("Login");
-                return View(usuario);
+                
             }
             catch (System.Exception ex)
             {
