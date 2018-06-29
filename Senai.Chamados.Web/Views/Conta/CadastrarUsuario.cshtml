@@ -12,9 +12,9 @@
 @using (Html.BeginForm("CadastrarUsuario", "Conta", FormMethod.Post, new { @class = "form-signin" }))
 {
     <div class="text-center mb-4">
-        <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal">Floating labels</h1>
-        <p>Build form controls with floating labels via the <code>:placeholder-shown</code> pseudo-element. <a href="https://caniuse.com/#feat=css-placeholder-shown">Works in latest Chrome, Safari, and Firefox.</a></p>
+        <img class="mb-4" src="~/Content/img/logo.jpg" alt="" width="200" height="200">
+        <h1 class="h3 mb-3 font-weight-normal">Cadastro</h1>
+        <p>Preencha os campos abaixo  </p>
     </div>
 
     <p>@ViewBag.Error</p>
@@ -98,8 +98,8 @@
     <script>
         $(document).ready(function () {
             $("#Telefone").mask('(00) 0000-00000');
-            $("#Cep").masck('00000-000');
-            $("#Cpf").masck('000.000.000-00')
+            $("#Cep").mask('00000-000');
+            $("#Cpf").mask('000.000.000-00');
         })
 
     </script>

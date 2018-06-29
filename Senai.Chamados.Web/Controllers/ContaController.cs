@@ -1,4 +1,5 @@
 ﻿
+using AutoMapper;
 using Senai.Chamados.Data.Contexto;
 using Senai.Chamados.Data.Repositorios;
 using Senai.Chamados.Domain.Entidades;
@@ -78,29 +79,29 @@ namespace Senai.Chamados.Web.Controllers
                 ViewBag.Erro = "Dados inválidos";
                 return View(usuario);
             }
-            SenaiChamadosDbContext context = new SenaiChamadosDbContext();
+            //SenaiChamadosDbContext context = new SenaiChamadosDbContext();
             UsuarioDomain usuarioBanco = new UsuarioDomain();
             try
             {
                 //usuarioBanco.Id = Guid.NewGuid();
-                usuarioBanco.Nome = usuario.Nome;
-                usuarioBanco.Email = usuario.Email;
-                usuarioBanco.Senha = usuario.Senha;
-                usuarioBanco.Telefone = usuario.Telefone;
-                usuarioBanco.Cpf = usuario.Cpf.Replace(".", "").Replace(".", "");
-                usuarioBanco.Cep = usuario.Cep.Replace(".", "");
-                usuarioBanco.Logradouro = usuario.Logradouro;
-                usuarioBanco.Numero = usuario.Numero;
-                usuarioBanco.Complemento = usuario.Complemento;
-                usuarioBanco.Bairro = usuario.Bairro;
-                usuarioBanco.Cidade = usuario.Cidade;
-                usuarioBanco.Estado = usuario.Estado;
+                //usuarioBanco.Nome = usuario.Nome;
+               // usuarioBanco.Email = usuario.Email;
+                //usuarioBanco.Senha = usuario.Senha;
+               // usuarioBanco.Telefone = usuario.Telefone;
+                usuario.Cpf = usuario.Cpf.Replace(".", "").Replace(".", "");
+                usuario.Cep = usuario.Cep.Replace(".", "");
+               // usuarioBanco.Logradouro = usuario.Logradouro;
+               // usuarioBanco.Numero = usuario.Numero;
+               // usuarioBanco.Complemento = usuario.Complemento;
+               // usuarioBanco.Bairro = usuario.Bairro;
+               // usuarioBanco.Cidade = usuario.Cidade;
+               // usuarioBanco.Estado = usuario.Estado;
                // usuarioBanco.DataCriacao = DateTime.Now;
                // usuarioBanco.DataAlteracao = DateTime.Now;
 
                 using (UsuarioRepositorio _repUsuario = new UsuarioRepositorio())
                 {
-                    _repUsuario.Inserir(usuarioBanco);
+                    _repUsuario.Inserir(Mapper.Map<CadastrarUsuarioViewModel, UsuarioDomain>(usuario));
                 }
                     TempData["Mensagem"] = "Usuário Cadastrado";
                 return RedirectToAction("Login");
@@ -113,7 +114,7 @@ namespace Senai.Chamados.Web.Controllers
             }
             finally
             {
-                context = null;
+                //context = null;
                 usuarioBanco = null;
             }
             
