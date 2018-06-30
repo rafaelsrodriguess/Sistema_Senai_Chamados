@@ -11,6 +11,8 @@
 
 @using (Html.BeginForm("Login", "Conta", FormMethod.Post, new { @class = "form-signin" }))
 {
+    @Html.AntiForgeryToken()
+
     <div class="text-center mb-4">
         <img class="mb-4" src="~/Content/img/logo.jpg" alt="" width="200" height="200">
         <h1 class="h3 mb-3 font-weight-normal">Login</h1>
