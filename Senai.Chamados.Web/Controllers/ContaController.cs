@@ -6,6 +6,8 @@ using Senai.Chamados.Domain.Entidades;
 using Senai.Chamados.Web.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Senai.Chamados.Web.Controllers
@@ -35,6 +37,14 @@ namespace Senai.Chamados.Web.Controllers
                 UsuarioDomain UsuarioBanco = _repUsuario.Login(Login.Email, Login.Senha);
                 if(UsuarioBanco !=null)
                 {
+                    var identity = new ClaimsIdentity(new[]
+                    { new Claim(ClaimTypes.Name,UsuarioBanco.Nome),
+                      new Claim(ClaimTypes.Email,UsuarioBanco.Email),
+                      new Claim(ClaimTypes.PrimarySid,UsuarioBanco.Id.ToString()),
+                      new Claim(ClaimTypes.NameIdentifier,UsuarioBanco.Id.ToString())
+                    }, "ApplicationCookie");
+
+                    Request.GetOwinContext().Authentication.SignIn(identities: identity);
                   return  RedirectToAction("Index","Usuario");
 
                 }
@@ -131,6 +141,12 @@ namespace Senai.Chamados.Web.Controllers
                         new SelectListItem { Text = "Masculino", Value = "1"},
                         new SelectListItem { Text= "Feminino", Value = "2"},
                     }, "Value", "Text");
+        }
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            Request.GetOwinContext().Authentication.SignOut("ApplicationCookie");
+            return RedirectToAction("Login");
         }
     }
 }

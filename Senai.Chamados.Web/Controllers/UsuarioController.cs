@@ -10,9 +10,11 @@ using System.Web.Mvc;
 
 namespace Senai.Chamados.Web.Controllers
 {
+    
     public class UsuarioController : Controller
     {
         // GET: Usuario
+        
         [HttpGet]
         public ActionResult Index()
         {
@@ -22,21 +24,21 @@ namespace Senai.Chamados.Web.Controllers
             {
                 vmListaUsuario.ListaUsuarios = Mapper.Map<List<UsuarioDomain>, List<UsuarioViewModel>>(_repUsuario.Listar());
             }
-                return View(vmListaUsuario);
+            return View(vmListaUsuario);
         }
-
+        [Authorize]
         [HttpGet]
-        public ActionResult Editar (Guid id)
+        public ActionResult Editar(Guid id)
         {
-            if(id == Guid.Empty)
+            if (id == Guid.Empty)
             {
                 TempData["Erro"] = "Informe o id do usuario";
                 return RedirectToAction("Index");
-            
+
             }
 
             UsuarioViewModel vmUsuario = new UsuarioViewModel();
-                using (UsuarioRepositorio _repUsuario = new UsuarioRepositorio())
+            using (UsuarioRepositorio _repUsuario = new UsuarioRepositorio())
             {
                 vmUsuario = Mapper.Map<UsuarioDomain, UsuarioViewModel>(_repUsuario.BuscarPorID(id));
 
@@ -52,7 +54,7 @@ namespace Senai.Chamados.Web.Controllers
                 }
             }
 
-                
+
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -84,8 +86,8 @@ namespace Senai.Chamados.Web.Controllers
         [HttpGet]
         public ActionResult Deletar(Guid id)
         {
-            if(id == Guid.Empty)
-                {
+            if (id == Guid.Empty)
+            {
 
                 TempData["Erro"] = "Informe o Id do usuário";
                 return RedirectToAction("Index");
@@ -108,7 +110,7 @@ namespace Senai.Chamados.Web.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Deletar (UsuarioViewModel usuario)
+        public ActionResult Deletar(UsuarioViewModel usuario)
         {
             if (usuario.Id == Guid.Empty)
             {
@@ -131,9 +133,11 @@ namespace Senai.Chamados.Web.Controllers
                     _repoUsuario.Deletar(Mapper.Map<UsuarioViewModel, UsuarioDomain>(vmUsuario));
                     TempData["Erro"] = "Usuário excluido";
                     return RedirectToAction("Index");
-                   
+
                 }
             }
 
+        }
+        
     }
 }

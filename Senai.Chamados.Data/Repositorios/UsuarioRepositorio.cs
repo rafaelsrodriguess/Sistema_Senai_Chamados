@@ -59,7 +59,8 @@ namespace Senai.Chamados.Data.Repositorios
         /// <returns>Retorna true para usuario cadastrado e fala caso não seja cadastrado</returns>
         public bool Deletar(UsuarioDomain domain)
         {
-            _contexto.Usuarios.Remove(domain);
+            var usuario = _contexto.Usuarios.Single(o => o.Id == domain.Id);
+            _contexto.Usuarios.Remove(usuario);
             int linhasExcluidas = _contexto.SaveChanges();
 
             if (linhasExcluidas > 0)
@@ -70,7 +71,7 @@ namespace Senai.Chamados.Data.Repositorios
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _contexto.Dispose();
         }
 
         /// <summary>
