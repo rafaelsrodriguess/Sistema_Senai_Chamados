@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Senai.Chamados.Domain.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -35,9 +36,11 @@ namespace Senai.Chamados.Web.ViewModels.Usuario
         [MinLength(4, ErrorMessage = "Número minimo de Caracteres é 4")]
         public string Senha { get; set; }
 
-        public SelectList Sexo { get; set; }
-        [Required(ErrorMessage = "Informe o sexo")]
-        public string SexoId { get; set; }
+        public SelectList ListaSexo { get; set; }
+        //[Required(ErrorMessage = "Informe o sexo")]
+        public EnSexo Sexo { get; set; }
+
+        public EnTipoUsuario TipoUsuario { get; set; }
 
         [MaxLength(9, ErrorMessage = "Cep deve possuir no máximo 9 Caracteres")]
         public string Cep { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Senai.Chamados.Domain.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -23,6 +24,10 @@ namespace Senai.Chamados.Domain.Entidades
         [System.ComponentModel.DataAnnotations.Required]
         [MaxLength(8)]
         public string Senha { get; set; }
+
+        public EnTipoUsuario TipoUsuario { get; set; }
+
+        public EnSexo Sexo { get; set; }
 
         [MaxLength(8)]
         public string Cep { get; set; }
